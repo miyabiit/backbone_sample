@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>MMenu Backbone Sample</title>
+		<link rel="stylesheet" href="./mmenu-1.4.1/mmenu.css" />
+		<link rel="stylesheet" href="examples.css" />
+	</head>
+	<body>
+		<div id="main">
+			<div id="header">
+				<a href="#menu"></a>
+				MMenu backbone
+			</div>
+			<div id="content">
+			</div>
+			
+			<nav id="menu">
+				<ul></ul>
+			</nav>
+		</div>
+
+		<script id="menu_template" type="text/template">
+			<a class="menu-title" href="#/menu/<%= id %>"><%= name %></a>
+		</script>
+
+		<script type="text/javascript" src="./mmenu-1.4.1/jquery.js"></script>
+		<script type="text/javascript" src="./mmenu-1.4.1/jquery.mmenu.js"></script>
+		<script type="text/javascript" src="../sample_addressbook/js/underscore.js"></script>
+		<script type="text/javascript" src="../sample_addressbook/js/backbone.js"></script>
+		<script type="text/javascript">
+			var Menu = Backbone.Model.extend({
+				defaults: {
+					id: 0,
+					name: ""
+				}
+			});
+
+			var MenuCollection = Backbone.Collection.extend({
+				model: Menu
+			});
+
+			var Main = Backbone.Model.extend({
+				defaults: {
+					selectedMenu: null
+				},
+				initialize: function(){
+					this.menus = new MenuCollection();
+				},
+				selectedMenu: function(){
+					return this.get("selectedMenu");
+				},
+				selectMenu: function(id){
+					var menu = this.menus.get(id);
+					this.set("selectedMenu", menu);
+				}
+			});
+
+			var MenuView = Backbone.View.extend({
+				template: _.template($("#menu_template").html()),
+				tagName: "li",
+				events: {
+					"click a.menu-title": "onClick"
+				},
+				render: function(){
+					var json = this.model.toJSON();
+					var html = this.template(json);
+					this.$el.html(html);
+					return this;
+				},
+				onClick: function(e){
+					$("#menu").trigger("close");
+				}
+			});
+
+			var MainView = Backbone.View.extend({
+				el: $("#main"),
+				initialize: function(){
+					this.model.on("change:selectedMenu", this.renderContent,this);
+				},
+				render: function(){
+					this.renderMenu();
+					return this;
+				},
+				renderMenu: function(){
+					var $ul = this.$el.find("#menu>ul");
+					$ul.empty();
+
+					this.model.menus.each(function(menu){
+						var view = new MenuView({ model: menu });
+						view.render();
+						$ul.append(view.el);
+					},this);
+				},
+				renderContent: function(){
+					var $content = this.$el.find("#content");
+					$content.empty();
+
+					var menu = this.model.selectedMenu();
+					if(!menu){
+						return;
+					}
+
+					$content.append(menu.get("name"));
+				}
+			});
+
+			var MainRouter = Backbone.Router.extend({
+				routes: {
+					"menu/:id": "showMenu"
+				},
+				initialize: function(){
+					this.main = new Main();
+					for(var i=0; i<20; i++){
+						this.main.menus.add({id: i, name: "Menu" + i});
+					}
+
+					this.mainView = new MainView({ model: this.main});
+					this.mainView.render();
+				},
+				showMenu: function(id){
+					this.main.selectMenu(id);
+				}
+			});
+
+			$(function(){
+				window.router = new MainRouter();
+				Backbone.history.start();
+				
+				$("#menu").mmenu({
+					closeOnClick: false
+					//onClick: false
+				});
+			});
+		</script>
+	</body>
+</html>
