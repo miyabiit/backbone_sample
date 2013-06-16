@@ -3,7 +3,7 @@
 	var Task = Backbone.Model.extend({
 		defaults: {
 			title: 'do something',
-			comleted: false
+			completed: false
 		},
 		validate: function(attrs){
 			if( _.isEmpty(attrs.title)){
