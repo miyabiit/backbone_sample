@@ -54,7 +54,7 @@
 			this.collection.on('destroy', this.updateCount, this);
 		},
 		addNew: function(task){
-			var taskVew = new TaskView({ model: task});
+			var taskView = new TaskView({ model: task});
 			this.$el.append(taskView.render().el);
 			$('#title').val('').focus();
 			this.updateCount();
@@ -104,7 +104,7 @@
 	]);
 
 	var tasksView = new TasksView({collection: tasks});
-	var addTaskView = new AddTaskView({collecton: tasks});
+	var addTaskView = new AddTaskView({collection: tasks});
 
 	$('#tasks').html(tasksView.render().el);
 
