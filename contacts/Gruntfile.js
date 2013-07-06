@@ -1,4 +1,4 @@
-jet: {
+jst: {
 	options: {
 		processName: function (name) {
 			return name.match(/((?:mobile|pc\/.*).html$/)[1];
