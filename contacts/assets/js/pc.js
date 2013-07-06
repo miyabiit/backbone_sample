@@ -1,12 +1,12 @@
 require([
 	'jquery',
 	'backbone',
-	'collections/ContractList',
+	'collections/ContactList',
 	'views/pc/AppView',
 	'routers/pc',
 	'fixtures'
 ],
-function($, ContactList, AppView, Router, fixtures){
+function($, Backbone, ContactList, AppView, Router, fixtures){
 	var router = new Router();
 	var contactlist = new ContactList();
 	contactlist.fetch({
@@ -21,6 +21,7 @@ function($, ContactList, AppView, Router, fixtures){
 		router: router,
 		collection: contactlist
 	});
+
 	$(function () {
 		$('body').append(appview.render().el);
 		Backbone.history.start();

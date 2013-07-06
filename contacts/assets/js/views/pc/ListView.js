@@ -1,8 +1,10 @@
 define([
+'jquery',
 'backbone',
 './ItemView'
 ],
-function (Backbone, ItemView) {
+function ($, Backbone, ItemView) {
+  'use strict';
 	return Backbone.View.extend({
 		tagName: 'ul',
 		initialize: function (){
@@ -15,7 +17,7 @@ function (Backbone, ItemView) {
 			return this;
 		},
 		append: function(model) {
-			var item_view = (new ItemView({model:model})).render();
+			var item_view = (new ItemView({model: model})).render();
 			var index = this.collection.indexOf(model);
 			if(index === 0){
 				this.$el.prepend(item_view.el);
