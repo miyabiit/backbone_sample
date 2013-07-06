@@ -3,12 +3,20 @@ require([
 	'backbone',
 	'collections/ContractList',
 	'views/pc/AppView',
-	'routers/pc'
+	'routers/pc',
+	'fixtures'
 ],
-function($, ContactList, AppView, Router){
+function($, ContactList, AppView, Router, fixtures){
 	var router = new Router();
 	var contactlist = new ContactList();
-	contactlist.fetch();
+	contactlist.fetch({
+		success: function () {
+			if(contactlist.isEmpty()){
+				contactlist.reset(fixtures).invoke('save');
+			}
+		}
+	});
+
 	var appview = new AppView({
 		router: router,
 		collection: contactlist
