@@ -42,7 +42,7 @@ function(Contact, ContactList, ItemView) {
 		});
 
 		describe('#presenter', function () {
-			it('should retrun escaped model attrs', function () {
+			it('should return escaped model attrs', function () {
 				itemview = new ItemView({model: contact});
 				contact.set('name', '<script>');
 				expect(itemview.presenter().name).toBe('&lt;script&gt;');
