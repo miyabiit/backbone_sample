@@ -15,11 +15,11 @@ define([
 		validate: function (attrs) {
 			var model, errors = {};
 			if(!attrs.name) errors.name = "name must be !";
-			if(attr.email) {
+			if(attrs.email) {
 				if (!/[^\s@]+@\S+\.\S+/.test(attrs.email)) {
 					errors.email = "format is irregal!";
 				}else{
-					model = this.collection.findWhere({email: atrs.email});
+					model = this.collection.findWhere({email: attrs.email});
 					if(model && model.id !== this.id)
 						errors.email = "this email already used";
 				}

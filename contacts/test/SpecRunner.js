@@ -38,7 +38,7 @@ require(['jquery'], function ($) {
     'spec/views/ItemViewSpec',
     'spec/views/ListViewSpec',
 //    'spec/views/pc/EditViewSpec',
-//    'spec/views/pc/NewViewSpec',
+    'spec/views/NewViewSpec',
     'spec/collections/ContactListSpec'
   ];
 

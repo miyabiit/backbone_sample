@@ -1,17 +1,19 @@
 define([
+'underscore',
 'backbone',
 'jst/pc'
 ], 
-function (Backbone, JST) {
+function (_, Backbone, JST) {
 	return Backbone.View.extend({
 		events: {
-			'click .cancel': function () {
+			'click .cancel': function (e) {
+        e.preventDefault();
 				Backbone.history.navigate('', true);
 			}
 		},
 		initialize: function () {
 			this.listenTo(this.model, 'invalid', this.renderValidationMessage);
-			this.listenTo(this.model, 'sync', function () {
+			this.listenTo(this.model, 'sync', function (model) {
 				model.collection.add(model);
 				Backbone.history.navigate(model.id, true);
 			});
@@ -19,7 +21,8 @@ function (Backbone, JST) {
 		
 		render: function () {
 			this.$el.html(JST['pc/new']({source: this.presenter()}));
-			this.$('form').on('submit', this.onSubmit);
+			//this.$('form').on('submit', this.onSubmit);
+      this.$('form').on('submit', _.bind(this.onSubmit, this));
 			return this;
 		},
 
@@ -36,7 +39,8 @@ function (Backbone, JST) {
 		onSubmit: function (e) {
 			e.preventDefault();
 			var model = this.model;
-			this.model.save(this.getValues());
+			this.$('.alert').hide();
+			model.save(this.getValues());
 		},
 
 		presenter: function () {
