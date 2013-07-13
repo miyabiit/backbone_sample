@@ -2,11 +2,40 @@ define(function(){
 
 this["JST"] = this["JST"] || {};
 
+this["JST"]["pc/_form"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+__p += '<form class="form-horizontal">\n<div class="alert alert-error alert-block" style="display: none;">\n<ul></ul>\n</div>\n<div class="control-group">\n<label class="control-label" for ="name">Name</label>\n<div class="controls">\n<input type="text" id="name" name ="name"\nvalue="' +
+((__t = ( source.name || '' )) == null ? '' : __t) +
+'" paceholder="name" required/>\n</div>\n</div>\n<div class="control-group">\n<label class="control-label" for ="email">Email</label>\n<div class="controls">\n<input type="text" id="email" name ="email"\nvalue="' +
+((__t = ( source.email || '' )) == null ? '' : __t) +
+'" paceholder="Email"\npattern="[^\\s@]+@\\S+\\.\\S+"/>\n</div>\n</div>\n<div class="control-group">\n<label class="control-label" for ="phone">Phone</label>\n<div class="controls">\n<input type="text" id="phone" name ="phone"\nvalue="' +
+((__t = ( source.phone || '' )) == null ? '' : __t) +
+'" paceholder="Phone"/>\n</div>\n</div>\n<div class="control-group">\n<label class="control-label" for ="facebook">Facebook</label>\n<div class="controls">\n<input type="text" id="facebook" name ="facebook"\nvalue="' +
+((__t = ( source.facebook || '' )) == null ? '' : __t) +
+'" paceholder="Facebook"/>\n</div>\n</div>\n<div class="control-group">\n<label class="control-label" for ="twitter">Twitter</label>\n<div class="controls">\n<input type="text" id="twitter" name ="twitter"\nvalue="' +
+((__t = ( source.twitter || '' )) == null ? '' : __t) +
+'" paceholder="Twitter"/>\n</div>\n</div>\n<div class="control-group">\n<label class="control-label" for ="github">Github</label>\n<div class="controls">\n<input type="text" id="github" name ="github"\nvalue="' +
+((__t = ( source.github || '' )) == null ? '' : __t) +
+'" paceholder="Github"/>\n</div>\n</div>\n<div class="form-action">\n<button class="btn btn-primary submit">Submit</button>\n<a href="#' +
+((__t = ( source.id )) == null ? '' : __t) +
+'" class="btn cancel">Cancel</a>\n';
+ if (source.id) { ;
+__p += '\n<span class="btn btn-danger delete">Delete</span>\n';
+ } ;
+__p += '\n</div>\n</form>';
+
+}
+return __p
+};
+
 this["JST"]["pc/app"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div id="header">\n<h1>CONTACT</h1>\n</div>\n<div id="content">\n<div id="sidebar" class="clearfix">\n<div id="sidebar-header">\n<a href="#new" class="new">New Contact</a>\n</div>\n<div id="sidebar-content">\n<div id="contactlist">\n</div>\n</div>\n<div id="main">\n</div>\n</div>';
+__p += '<div id="header">\n<h1>CONTACT</h1>\n</div>\n<div id="content">\n<div id="sidebar" class="clearfix">\n<div id="sidebar-header">\n<a href="#new" class="new">New Contact</a>\n</div>\n<div id="sidebar-content">\n<div id="contactlist"></div>\n</div>\n</div>\n<div id="main">\n</div>\n</div>';
 
 }
 return __p
@@ -36,6 +65,17 @@ __p += '<p>' +
 '</p>';
  } ;
 __p += '\n</a>';
+
+}
+return __p
+};
+
+this["JST"]["pc/new"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p +=
+((__t = ( JST['pc/_form']({source: source}) )) == null ? '' : __t);
 
 }
 return __p

@@ -2,6 +2,8 @@ module.exports = function (grunt) {
   [
     'grunt-contrib-connect',
     'grunt-contrib-jst',
+    'grunt-contrib-less',
+    'grunt-contrib-cssmin',
     'grunt-contrib-requirejs',
     'grunt-contrib-watch'
   ].forEach(function (name) {
@@ -9,6 +11,17 @@ module.exports = function (grunt) {
   });
 
   grunt.initConfig({
+    cssmin: {
+      mobile: {
+        files: {
+          'assets/css/mobile.css': [
+            'assets/css/vendor/jquery.mobile.structure-1.3.0.css',
+            'assets/css/vendor/theme.css',
+            'assets/css/mobile.css'
+          ]
+        }
+      }
+    },
 		jst: {
 			options: {
 				processName: function (name) {
@@ -58,8 +71,27 @@ module.exports = function (grunt) {
       jst: {
         files: ['assets/js/templates/**/*.html'],
         tasks: ['jst']
+      },
+      less: {
+        files: ['assets/less/*.less'],
+        tasks: ['less', 'cssmin']
       }
 		},
+    less: {
+      options: {
+        compress: true
+      },
+      pc: {
+        files: {
+          'assets/css/pc.css': 'assets/less/pc.less'
+        }
+      },
+      mobile: {
+        files: {
+          'assets/css/mobile.css': 'assets/less/mobile.less'
+        }
+      }
+    },
     connect: {
       server: {
         options: {
@@ -70,6 +102,7 @@ module.exports = function (grunt) {
       }
     }
 	});
+  grunt.registerTask('build:css', ['less', 'cssmin']);
   grunt.registerTask('build:js', ['jst', 'requirejs']);
   grunt.registerTask('default', ['connect', 'watch']);
 };
