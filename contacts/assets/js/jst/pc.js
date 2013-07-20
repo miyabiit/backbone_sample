@@ -41,6 +41,17 @@ __p += '<div id="header">\n<h1>CONTACT</h1>\n</div>\n<div id="content">\n<div id
 return __p
 };
 
+this["JST"]["pc/edit"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p +=
+((__t = ( JST['pc/_form']({source: source}) )) == null ? '' : __t);
+
+}
+return __p
+};
+
 this["JST"]["pc/item"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
@@ -48,7 +59,7 @@ function print() { __p += __j.call(arguments, '') }
 with (obj) {
 __p += '<a href="#' +
 ((__t = ( source.id )) == null ? '' : __t) +
-'">\n<img src="http://www.gravatar.com/avatar/' +
+'/edit" class="edit">\n<img src="http://www.gravatar.com/avatar/' +
 ((__t = ( source.hash )) == null ? '' : __t) +
 '"\nclass="thumbnail"/>\n<h3>' +
 ((__t = ( source.name )) == null ? '' : __t) +
@@ -76,6 +87,49 @@ var __t, __p = '', __e = _.escape;
 with (obj) {
 __p +=
 ((__t = ( JST['pc/_form']({source: source}) )) == null ? '' : __t);
+
+}
+return __p
+};
+
+this["JST"]["pc/show"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+__p += '<ul class="pager">\n<li class="previous"><a href="#' +
+((__t = ( source.id )) == null ? '' : __t) +
+'/edit" class="edit">Edit</a></li>\n</ul>\n<dl class="dl-horizontal">\n<dt>Name</dt>\n<dd>' +
+((__t = ( source.name )) == null ? '' : __t) +
+'</dd>\n<dt>Email</dt>\n<dd>' +
+((__t = ( source.email || '&nbsp;' )) == null ? '' : __t) +
+'</dd>\n<dt>Phone</dt>\n<dd>' +
+((__t = ( source.phone || '&nbsp;' )) == null ? '' : __t) +
+'</dd>\n';
+ if (source.facebook) { ;
+__p += '\n<dt>Facebook</dt>\n<dd>\n<a href="https://www.facebook.com/' +
+((__t = ( source.facebook )) == null ? '' : __t) +
+'"\ntarget="_blank">\n' +
+((__t = ( source.facebook )) == null ? '' : __t) +
+'\n</a>\n</dd>\n';
+ } ;
+__p += '\n';
+ if (source.twitter) { ;
+__p += '\n<dt>Twitter</dt>\n<dd>\n<a href="https://twitter.com/' +
+((__t = ( source.twitter )) == null ? '' : __t) +
+'" target="_blank">\n' +
+((__t = ( source.twitter )) == null ? '' : __t) +
+'\n</a>\n</dd>\n';
+ } ;
+__p += '\n';
+ if (source.github) { ;
+__p += '\n<dt>Github</dt>\n<dd>\n<a href="https://github.com/' +
+((__t = ( source.github )) == null ? '' : __t) +
+'" target="_blank">\n' +
+((__t = ( source.github )) == null ? '' : __t) +
+'\n</a>\n</dd>\n';
+ } ;
+__p += '\n</dl>';
 
 }
 return __p
