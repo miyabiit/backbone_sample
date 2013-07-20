@@ -59,7 +59,7 @@ function print() { __p += __j.call(arguments, '') }
 with (obj) {
 __p += '<a href="#' +
 ((__t = ( source.id )) == null ? '' : __t) +
-'/edit" class="edit">\n<img src="http://www.gravatar.com/avatar/' +
+'">\n<img src="http://www.gravatar.com/avatar/' +
 ((__t = ( source.hash )) == null ? '' : __t) +
 '"\nclass="thumbnail"/>\n<h3>' +
 ((__t = ( source.name )) == null ? '' : __t) +

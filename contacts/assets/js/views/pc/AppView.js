@@ -3,11 +3,12 @@ define([
 'underscore',
 'backbone',
 './ListView',
+'./ShowView',
 './EditView',
 './NewView',
 'models/Contact',
 'jst/pc'
-], function ($, _, Backbone, ListView, EditView, NewView, Contact, JST) {
+], function ($, _, Backbone, ListView, ShowView, EditView, NewView, Contact, JST) {
 	return Backbone.View.extend({
 		mainview: null, 
 		events: {
@@ -30,6 +31,9 @@ define([
 					//this.newContact.apply(this,args);
 					this.newContact();
 					break;
+				case 'show':
+					this.showContact.apply(this, args);
+					break;
 				case 'edit':
 					this.editContact.apply(this, args);
 					break;
@@ -48,12 +52,16 @@ define([
 			this.mainview = new NewView({model: model});
 			this.$('#main').html(this.mainview.render().el);
 		},
+		showContact: function (id) {
+			var model = this.collection.get(id);
+			if(!model) return;
+			this.mainview = new ShowView({model: model});
+			this.$('#main').html(this.mainview.render().el);
+		},
 		editContact: function (id) {
 			var model = this.collection.get(id);
-			//var model = new Contact(null, {collection: this.collection});
-			//if (!model) return;
-			//this.mainview = new EditView({model: model});
-			this.mainview = new NewView({model: model});
+			if (!model) return;
+			this.mainview = new EditView({model: model});
 			this.$('#main').html(this.mainview.render().el);
 		}
 	});
